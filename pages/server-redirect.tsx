@@ -11,6 +11,7 @@ export default function ServerSidePage({ session }: { session: Session }) {
   return (
     <Layout>
       <h1>Server Side Rendering</h1>
+      <h2>You won't see this page unless you're authenticated</h2>
       <p>
         This page uses the <strong>unstable_getServerSession()</strong> method
         in <strong>getServerSideProps()</strong>.
@@ -30,20 +31,30 @@ export default function ServerSidePage({ session }: { session: Session }) {
       </p>
       <hr/>
       <p>Login info:</p>
-      <pre>{JSON.stringify(session, null, 2)}</pre>
+      <pre>{JSON.stringify(session?.user, null, 2)}</pre>
     </Layout>
   )
 }
 
-// Export the `session` prop to use sessions with Server Side Rendering
+
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await unstable_getServerSession(
+                              context.req, 
+                              context.res,
+                              authOptions)
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+
   return {
     props: {
-      session: await unstable_getServerSession(
-        context.req,
-        context.res,
-        authOptions
-      ),
+      session,
     },
   }
 }

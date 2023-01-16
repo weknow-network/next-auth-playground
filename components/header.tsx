@@ -87,6 +87,12 @@ export default function Header() {
           <li className={styles.navItem}>
             <Link href="/me">Me</Link>
           </li>
+          <li className={styles.navItem}>
+            <Link href="/alt-auth">Alternate Auth</Link>
+          </li>
+          <li className={styles.navItem}>
+            <Link href="/server-redirect">Server if Auth</Link>
+          </li>
         </ul>
       </nav>
     </header>
