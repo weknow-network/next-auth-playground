@@ -88,6 +88,9 @@ export default function Header() {
             <Link href="/me">Me</Link>
           </li>
           <li className={styles.navItem}>
+            <Link href="/open-me">Open Me</Link>
+          </li>
+          <li className={styles.navItem}>
             <Link href="/alt-auth">Alternate Auth</Link>
           </li>
           <li className={styles.navItem}>
